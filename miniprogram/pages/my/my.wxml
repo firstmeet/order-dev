@@ -1,0 +1,80 @@
+<!--my.wxml-->
+<view class="my-page">
+  <!-- 顶部用户信息 -->
+  <view class="user-header">
+    <view class="user-info {{isLoading ? 'loading' : ''}}">
+      <view class="avatar-section">
+        <image class="avatar" src="{{userProfile.avatar}}" mode="aspectFill"></image>
+      </view>
+      <view class="info-section">
+        <view class="name-wrap">
+          <text class="name" wx:if="{{hasUserInfo}}">{{userProfile.username}}</text>
+          <text class="level">Lv1</text>
+        </view>
+        <view class="member-info">
+          <text class="member-tag">普通会员</text>
+          <text class="phone" wx:if="{{hasUserInfo}}">{{userProfile.phone}}</text>
+        </view>
+        <view class="login-section" wx:if="{{!hasUserInfo}}">
+          <text class="login-tips">登录后使用更多功能</text>
+          <button class="login-btn" bindtap="navigateToLogin">立即登录</button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能区域 -->
+  <view class="features-section">
+    <!-- 订单相关 -->
+    <view class="feature-grid">
+      <view class="feature-item" bindtap="navigateToMyTasks">
+        <view class="icon-wrap">
+          <image class="icon" src="/assets/images/icons/order.png" mode="aspectFit"></image>
+        </view>
+        <text class="label">我的代练单</text>
+      </view>
+      <view class="feature-item" bindtap="navigateToMyPublish">
+        <view class="icon-wrap">
+          <image class="icon" src="/assets/images/icons/publish.png" mode="aspectFit"></image>
+        </view>
+        <text class="label">我发布的</text>
+      </view>
+      <view class="feature-item" bindtap="navigateToSettings">
+        <view class="icon-wrap">
+          <image class="icon" src="/assets/images/icons/settings.png" mode="aspectFit"></image>
+        </view>
+        <text class="label">设置</text>
+      </view>
+      <view class="feature-item" bindtap="contactService">
+        <view class="icon-wrap">
+          <image class="icon" src="/assets/images/icons/service.png" mode="aspectFit"></image>
+        </view>
+        <text class="label">联系客服</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 活动卡片区域 -->
+  <view class="cards-section">
+    <view class="card promotion-card">
+      <view class="card-content">
+        <view class="card-left">
+          <view class="card-title">邀请好友</view>
+          <view class="card-subtitle">获得专属奖励</view>
+        </view>
+        <view class="card-right">
+          <button class="action-btn">立即邀请</button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部导航栏占位 -->
+  <view class="bottom-space"></view>
+
+  <!-- 发布按钮 -->
+  <view class="publish-btn" bindtap="navigateToPublish">
+    <image class="icon" src="/assets/images/icons/publish.png" mode="aspectFit"></image>
+    <text>发布</text>
+  </view>
+</view> 

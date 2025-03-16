@@ -1,0 +1,23 @@
+<view class="login-container">
+  <view class="logo">
+    <image src="/assets/images/logo.png" mode="aspectFit"></image>
+  </view>
+  
+  <view class="title">手动代练平台</view>
+  <view class="subtitle">专业的游戏代练服务</view>
+  
+  <view class="login-btn-area">
+    <button class="wechat-login-btn" type="primary" bindtap="handleWechatLogin" wx:if="{{!isLoggedIn}}">
+      <image class="wechat-icon" src="/assets/images/wechat.png" mode="aspectFit"></image>
+      微信一键登录
+    </button>
+    
+    <!-- 显示获取手机号按钮 -->
+    <button wx:if="{{showPhoneButton}}" class="phone-btn" type="default" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
+      <image class="phone-icon" src="/assets/images/phone.png" mode="aspectFit"></image>
+      授权手机号
+    </button>
+  </view>
+  
+  <view class="tips">登录即表示您同意《用户协议》和《隐私政策》</view>
+</view> 

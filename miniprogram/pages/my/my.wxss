@@ -1,0 +1,208 @@
+/* my.wxss */
+page {
+  background: #f5f6fa;
+}
+
+.container {
+  min-height: 100vh;
+  padding: 0 0 160rpx 0;
+}
+
+/* 用户信息卡片 */
+.user-card {
+  margin: 24rpx;
+  background: linear-gradient(135deg, #07c160 0%, #0baf56 100%);
+  border-radius: 24rpx;
+  padding: 40rpx 32rpx;
+  color: #fff;
+  box-shadow: 0 4rpx 16rpx rgba(7, 193, 96, 0.2);
+}
+
+.user-info-section {
+  width: 100%;
+}
+
+.user-info-section.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.user-info-section.loading .avatar {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.user-info-main {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.avatar-wrap {
+  margin-right: 32rpx;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.avatar {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 70rpx;
+  border: 4rpx solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.user-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+  overflow: hidden;
+}
+
+.nickname {
+  font-size: 44rpx;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.phone {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.login-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.login-tips {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.login-btn {
+  margin: 0;
+  padding: 0;
+  width: fit-content;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 28rpx;
+  color: #fff;
+  font-weight: normal;
+  padding: 12rpx 32rpx;
+  border-radius: 32rpx;
+  backdrop-filter: blur(4px);
+}
+
+.login-btn::after {
+  display: none;
+}
+
+/* 菜单部分 */
+.menu-section {
+  margin: 24rpx;
+}
+
+.menu-group {
+  background: #fff;
+  border-radius: 24rpx;
+  margin-bottom: 24rpx;
+  overflow: hidden;
+}
+
+.group-title {
+  font-size: 28rpx;
+  color: #999;
+  padding: 24rpx 32rpx 8rpx;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32rpx;
+  position: relative;
+  background: #fff;
+}
+
+.menu-item:active {
+  background: #f8f9fc;
+}
+
+.menu-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 88rpx;
+  right: 32rpx;
+  bottom: 0;
+  height: 1rpx;
+  background: #f5f6fa;
+}
+
+.menu-item-left {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+}
+
+.menu-icon {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12rpx;
+}
+
+.menu-icon image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.order-icon {
+  background: rgba(7, 193, 96, 0.1);
+}
+
+.publish-icon {
+  background: rgba(64, 158, 255, 0.1);
+}
+
+.settings-icon {
+  background: rgba(144, 147, 153, 0.1);
+}
+
+.service-icon {
+  background: rgba(255, 102, 0, 0.1);
+}
+
+.menu-text {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.menu-item-right {
+  display: flex;
+  align-items: center;
+}
+
+.menu-arrow {
+  font-size: 32rpx;
+  color: #ccc;
+  font-family: system-ui;
+} 

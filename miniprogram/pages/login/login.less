@@ -1,0 +1,93 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 0 40rpx;
+  background-color: #f8f8f8;
+}
+
+.logo {
+  width: 200rpx;
+  height: 200rpx;
+  margin-bottom: 40rpx;
+  
+  image {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.title {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.subtitle {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 80rpx;
+}
+
+.login-btn-area {
+  width: 100%;
+  margin-bottom: 40rpx;
+}
+
+.wechat-login-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: #07c160 !important;
+  border-radius: 8rpx;
+  height: 88rpx;
+  margin-bottom: 20rpx;
+  
+  .wechat-icon {
+    width: 40rpx;
+    height: 40rpx;
+    margin-right: 10rpx;
+  }
+}
+
+.phone-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff !important;
+  color: #333333 !important;
+  border: 1px solid #dddddd;
+  border-radius: 8rpx;
+  height: 88rpx;
+  margin-top: 20rpx;
+  
+  .phone-icon {
+    width: 40rpx;
+    height: 40rpx;
+    margin-right: 10rpx;
+  }
+}
+
+// 隐藏的按钮样式
+.hidden-btn {
+  position: fixed;
+  top: -999rpx;
+  left: -999rpx;
+  width: 0;
+  height: 0;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tips {
+  font-size: 24rpx;
+  color: #999;
+  text-align: center;
+} 

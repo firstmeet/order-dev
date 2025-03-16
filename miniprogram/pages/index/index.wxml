@@ -1,0 +1,41 @@
+<!--index.wxml-->
+<view class="container">
+  <!-- 搜索区域 -->
+  <view class="search-section">
+    <view class="search-box">
+      <input class="search-input" placeholder="搜索代练单" bindinput="onSearchInput" value="{{searchKeyword}}" />
+    </view>
+  </view>
+
+  <!-- 任务列表 -->
+  <scroll-view class="task-list" scroll-y bindscrolltolower="loadMoreTasks" enhanced show-scrollbar="{{false}}">
+    <block wx:if="{{tasks.length > 0}}">
+      <view class="task-item" wx:for="{{tasks}}" wx:key="id" bindtap="navigateToDetail" data-id="{{item.id}}">
+        <view class="task-main">
+          <view class="task-title">{{item.game}}</view>
+          <view class="task-status">{{item.status === 'open' ? '招募中' : '已关闭'}}</view>
+        </view>
+        <view class="task-content">
+          <view wx:for="{{item.items}}" wx:for-item="gameItem" wx:key="id" class="game-item">
+            <view class="task-type">{{gameItem.task_type}}</view>
+            <view class="price-specs">
+              <view wx:for="{{gameItem.price_specs}}" wx:for-item="priceSpec" wx:key="id" class="price-spec-item">
+                <text class="spec-name">{{priceSpec.name}}</text>
+                <view class="task-price">
+                  <text class="price-symbol">¥</text>
+                  <text>{{priceSpec.price}}</text>
+                  <text class="price-unit">/天</text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!-- 加载更多 -->
+    <view class="loading" wx:if="{{isLoading}}">加载中...</view>
+    <view class="divider" wx:if="{{!isLoading && !hasMore && tasks.length > 0}}">没有更多了</view>
+  </scroll-view>
+</view>
+

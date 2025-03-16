@@ -1,0 +1,138 @@
+<!--publish.wxml-->
+<view class="publish-page">
+  <!-- 自定义导航栏 -->
+  <view class="nav-bar" style="padding-top: {{env(safe-area-inset-top)}}px;">
+    <view class="nav-content">
+      <view class="back-btn" bindtap="navigateBack">
+        <text class="back-icon">←</text>
+      </view>
+      <text class="title">发布订单</text>
+    </view>
+  </view>
+
+  <view class="loading-container" wx:if="{{isLoading}}">
+    <view class="loading-text">加载中...</view>
+  </view>
+
+  <form bindsubmit="handleSubmit" wx:else>
+    <!-- 游戏选择 -->
+    <view class="form-section">
+      <view class="section-title">选择游戏</view>
+      <view class="form-item">
+        <text class="label required">游戏</text>
+        <picker bindchange="handleGameSelect" value="{{selectedGameIndex}}" range="{{games}}" range-key="name">
+          <view class="picker {{selectedGame ? '' : 'placeholder'}}">
+            {{selectedGame ? selectedGame.name : '请选择游戏'}}
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item" wx:if="{{selectedGame}}">
+        <text class="label required">代练项目</text>
+        <checkbox-group class="checkbox-group" bindchange="handleGameItemSelect">
+          <label class="checkbox-item" wx:for="{{gameItems}}" wx:key="id">
+            <checkbox value="{{item.id + ''}}" checked="{{item.checked}}" />
+            <view class="checkbox-content">
+              <view class="checkbox-header">
+                <text class="checkbox-label">{{item.name}}</text>
+              </view>
+              <text class="checkbox-description" wx:if="{{item.description}}">{{item.description}}</text>
+              <!-- 价格输入区域 -->
+              <view class="price-specs" wx:if="{{item.checked}}" catch:tap>
+                <view class="price-spec-item" wx:for="{{item.prices}}" wx:for-item="priceSpec" wx:for-index="priceIndex" wx:key="priceIndex">
+                  <view class="price-spec-content">
+                    <input class="spec-name-input" 
+                           placeholder="规格名称" 
+                           value="{{priceSpec.spec_name}}"
+                           data-item-id="{{item.id}}"
+                           data-price-index="{{priceIndex}}"
+                           bindinput="handleSpecNameInput"/>
+                    <view class="price-input-container">
+                      <input type="digit" 
+                             class="price-input"
+                             placeholder="价格" 
+                             value="{{priceSpec.price || ''}}"
+                             data-item-id="{{item.id}}"
+                             data-price-index="{{priceIndex}}"
+                             bindinput="handleItemPriceInput"/>
+                      <text class="price-unit">元</text>
+                    </view>
+                  </view>
+                  <view class="delete-btn" 
+                        data-item-id="{{item.id}}"
+                        data-price-index="{{priceIndex}}"
+                        catchtap="handleDeletePriceSpec">×</view>
+                </view>
+                <view class="add-price-spec" catchtap="handleAddPriceSpec" data-item-id="{{item.id}}">
+                  <text class="add-icon">+</text>
+                  <text>添加价格规格</text>
+                </view>
+              </view>
+            </view>
+          </label>
+        </checkbox-group>
+      </view>
+
+      <view class="form-item" wx:if="{{selectedGame}}">
+        <text class="label">游戏区服</text>
+        <checkbox-group class="server-group" bindchange="handleServerSelect">
+          <label class="server-item" wx:for="{{gameServers}}" wx:key="id">
+            <checkbox value="{{item.id + ''}}" checked="{{item.checked}}" />
+            <text class="server-name">{{item.name}}</text>
+          </label>
+        </checkbox-group>
+      </view>
+    </view>
+
+    <!-- 代练描述 -->
+    <view class="form-section" wx:if="{{selectedGame}}">
+      <view class="section-title">详情</view>
+      <view class="form-item">
+        <text class="label required">说明</text>
+        <textarea name="description" 
+                  placeholder="请详细描述您的需求，如：目标等级、装备需求等" 
+                  maxlength="500"
+                  class="description-input"
+                  value="{{description}}"
+                  bindinput="handleDescriptionInput">
+        </textarea>
+        <view class="word-count">{{descriptionLength}}/500</view>
+      </view>
+    </view>
+
+    <!-- 联系方式 -->
+    <view class="form-section" wx:if="{{selectedGame}}">
+      <view class="section-title">联系方式</view>
+      <view class="form-item">
+        <text class="label required">手机号码</text>
+        <view class="phone-input-wrap">
+          <input type="number" 
+                 name="phone" 
+                 class="phone-input" 
+                 placeholder="请输入手机号码" 
+                 value="{{phone}}"
+                 bindinput="handlePhoneInput"/>
+        </view>
+      </view>
+
+      <view class="form-item">
+        <text class="label">QQ号码</text>
+        <view class="qq-input-wrap">
+          <input type="number" 
+                 name="qq" 
+                 class="qq-input" 
+                 placeholder="选填" 
+                 value="{{qq}}"
+                 bindinput="handleQQInput"/>
+        </view>
+      </view>
+    </view>
+
+    <!-- 提交按钮 -->
+    <view class="submit-section">
+      <button class="submit-btn" form-type="submit" disabled="{{!formValid}}">
+        发布订单
+      </button>
+    </view>
+  </form>
+</view> 

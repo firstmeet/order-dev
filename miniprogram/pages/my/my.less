@@ -1,0 +1,287 @@
+// Variables
+@primary-color: #0066FF;
+@background-color: #F6F7FB;
+@text-primary: #333333;
+@text-secondary: #666666;
+@text-light: #999999;
+@white: #FFFFFF;
+
+// Mixins
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Styles
+.my-page {
+  min-height: 100%;
+  background-color: @background-color;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 120rpx);
+}
+
+// 用户信息区域
+.user-header {
+  position: relative;
+  padding-top: calc(env(safe-area-inset-top) + 88rpx); // 状态栏高度 + 额外间距
+  padding-bottom: 48rpx;
+  padding-left: 24rpx;
+  padding-right: 24rpx;
+  background: linear-gradient(135deg, @primary-color 0%, darken(@primary-color, 10%) 100%);
+  
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -32rpx;
+    height: 32rpx;
+    background: @background-color;
+    border-radius: 32rpx 32rpx 0 0;
+  }
+  
+  .user-info {
+    position: relative;
+    z-index: 1;
+    .flex-between();
+    
+    &.loading {
+      opacity: 0.7;
+      pointer-events: none;
+      
+      .avatar {
+        animation: pulse 1.5s infinite;
+      }
+    }
+  }
+  
+  .avatar-section {
+    margin-right: 24rpx;
+    
+    .avatar {
+      width: 120rpx;
+      height: 120rpx;
+      border-radius: 60rpx;
+      border: 4rpx solid rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+  
+  .info-section {
+    flex: 1;
+    color: @white;
+    padding-right: 100rpx; // 为右上角按钮预留空间
+    
+    .name-wrap {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12rpx;
+      
+      .name {
+        font-size: 40rpx;
+        font-weight: 600;
+        margin-right: 16rpx;
+        .text-ellipsis();
+        max-width: 400rpx;
+      }
+      
+      .level {
+        font-size: 24rpx;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 4rpx 12rpx;
+        border-radius: 16rpx;
+      }
+    }
+    
+    .member-info {
+      display: flex;
+      align-items: center;
+      gap: 16rpx;
+      
+      .member-tag {
+        font-size: 24rpx;
+        background: rgba(255, 255, 255, 0.15);
+        padding: 4rpx 12rpx;
+        border-radius: 12rpx;
+      }
+      
+      .phone {
+        font-size: 26rpx;
+        color: rgba(255, 255, 255, 0.9);
+      }
+    }
+    
+    .login-section {
+      margin-top: 16rpx;
+      
+      .login-tips {
+        font-size: 28rpx;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 16rpx;
+      }
+      
+      .login-btn {
+        margin: 0;
+        padding: 12rpx 32rpx;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 32rpx;
+        font-size: 28rpx;
+        color: @white;
+        font-weight: normal;
+        width: fit-content;
+        
+        &::after {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+// 功能区域
+.features-section {
+  margin: 0 24rpx 24rpx;
+  background: @white;
+  border-radius: 24rpx;
+  padding: 32rpx 24rpx;
+  
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16rpx;
+    
+    .feature-item {
+      .flex-center();
+      flex-direction: column;
+      padding: 12rpx 0;
+      
+      .icon-wrap {
+        width: 80rpx;
+        height: 80rpx;
+        background: fade(@primary-color, 8%);
+        border-radius: 20rpx;
+        margin-bottom: 8rpx;
+        .flex-center();
+        
+        .icon {
+          width: 44rpx;
+          height: 44rpx;
+        }
+      }
+      
+      .label {
+        font-size: 24rpx;
+        color: @text-primary;
+        line-height: 1.4;
+      }
+    }
+  }
+}
+
+// 活动卡片区域
+.cards-section {
+  margin: 24rpx;
+  
+  .card {
+    background: @white;
+    border-radius: 24rpx;
+    overflow: hidden;
+    
+    &.promotion-card {
+      .card-content {
+        .flex-between();
+        padding: 32rpx;
+        
+        .card-left {
+          .card-title {
+            font-size: 32rpx;
+            font-weight: 600;
+            color: @text-primary;
+            margin-bottom: 8rpx;
+          }
+          
+          .card-subtitle {
+            font-size: 26rpx;
+            color: @text-light;
+          }
+        }
+        
+        .card-right {
+          .action-btn {
+            margin: 0;
+            padding: 12rpx 32rpx;
+            background: @primary-color;
+            border-radius: 32rpx;
+            color: @white;
+            font-size: 28rpx;
+            
+            &::after {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// 动画
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+// 发布按钮
+.publish-btn {
+  position: fixed;
+  right: 32rpx;
+  bottom: calc(env(safe-area-inset-bottom) + 140rpx);
+  display: flex;
+  align-items: center;
+  padding: 20rpx 32rpx;
+  background: @primary-color;
+  border-radius: 40rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 102, 255, 0.2);
+  z-index: 100;
+  
+  .icon {
+    width: 32rpx;
+    height: 32rpx;
+    margin-right: 8rpx;
+  }
+  
+  text {
+    color: @white;
+    font-size: 28rpx;
+    font-weight: 500;
+  }
+
+  &:active {
+    transform: scale(0.96);
+    transition: transform 0.2s ease;
+  }
+}
+
+// 底部占位
+.bottom-space {
+  height: 120rpx;
+} 
