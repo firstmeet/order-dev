@@ -116,42 +116,42 @@ page {
 
       .price-specs {
         display: flex;
-        flex-direction: column;
-        align-items: flex-end;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-end;
         
         .price-spec-item {
           display: flex;
-          flex-direction: column;
-          align-items: flex-end;
+          flex-direction: row;
+          align-items: center;
+          margin-left: 16rpx;
           margin-bottom: 8rpx;
-          
-          &:last-child {
-            margin-bottom: 0;
-          }
           
           .spec-name {
             font-size: 24rpx;
             color: var(--text-secondary);
-            margin-bottom: 4rpx;
+            margin-right: 4rpx;
           }
         }
       }
 
       .task-price {
         color: var(--danger-color);
-        font-size: 32rpx;
+        font-size: 28rpx;
         font-weight: 500;
+        display: flex;
+        align-items: center;
 
         .price-symbol {
-          font-size: 24rpx;
-          margin-right: 4rpx;
+          font-size: 22rpx;
+          margin-right: 2rpx;
         }
 
         .price-unit {
-          font-size: 24rpx;
+          font-size: 22rpx;
           color: var(--text-light);
           font-weight: normal;
-          margin-left: 4rpx;
+          margin-left: 2rpx;
         }
       }
     }

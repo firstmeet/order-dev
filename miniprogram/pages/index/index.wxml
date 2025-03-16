@@ -20,11 +20,10 @@
             <view class="task-type">{{gameItem.task_type}}</view>
             <view class="price-specs">
               <view wx:for="{{gameItem.price_specs}}" wx:for-item="priceSpec" wx:key="id" class="price-spec-item">
-                <text class="spec-name">{{priceSpec.name}}</text>
+                <text class="spec-name">{{priceSpec.name}}:</text>
                 <view class="task-price">
                   <text class="price-symbol">¥</text>
                   <text>{{priceSpec.price}}</text>
-                  <text class="price-unit">/天</text>
                 </view>
               </view>
             </view>
