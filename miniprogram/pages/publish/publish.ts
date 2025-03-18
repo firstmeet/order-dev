@@ -88,6 +88,16 @@ Page({
     await this.fetchGames();
   },
 
+  onShow() {
+    // 隐藏官方tabBar
+    wx.hideTabBar({});
+  },
+
+  onHide() {
+    // 显示官方tabBar
+    wx.showTabBar({});
+  },
+
   // 获取游戏列表
   async fetchGames() {
     try {
@@ -233,7 +243,7 @@ Page({
     }, () => {
       console.log('设置后的状态:', {
         selectedGameItems: this.data.selectedGameItems,
-        prices: this.data.selectedGameItems?.[0]?.prices
+        prices: this.data.selectedGameItems && this.data.selectedGameItems[0] ? this.data.selectedGameItems[0].prices : undefined
       });
     });
     
@@ -279,7 +289,7 @@ Page({
   handleItemPriceInput(e: WechatMiniprogram.CustomEvent) {
     const { value } = e.detail;
     const { itemId, priceIndex } = e.currentTarget.dataset;
-    const itemIndex = this.data.selectedGameItems?.findIndex(item => item.id === Number(itemId)) ?? -1;
+    const itemIndex = this.data.selectedGameItems ? this.data.selectedGameItems.findIndex(item => item.id === Number(itemId)) : -1;
     
     if (itemIndex === -1) return;
     
@@ -311,7 +321,7 @@ Page({
   handleSpecNameInput(e: WechatMiniprogram.CustomEvent) {
     const { value } = e.detail;
     const { itemId, priceIndex } = e.currentTarget.dataset;
-    const itemIndex = this.data.selectedGameItems?.findIndex(item => item.id === Number(itemId)) ?? -1;
+    const itemIndex = this.data.selectedGameItems ? this.data.selectedGameItems.findIndex(item => item.id === Number(itemId)) : -1;
     
     if (itemIndex === -1) return;
 
@@ -359,8 +369,8 @@ Page({
 
   // 获取特定游戏项目的价格
   getItemPrice(id: number): string {
-    const item = this.data.selectedGameItems?.find(item => item.id === id);
-    return item?.prices.reduce((sum, p) => sum + p.price, 0).toFixed(2) || '0.00';
+    const item = this.data.selectedGameItems ? this.data.selectedGameItems.find(item => item.id === id) : undefined;
+    return item ? item.prices.reduce((sum, p) => sum + p.price, 0).toFixed(2) : '0.00';
   },
 
   // 表单验证
@@ -402,10 +412,10 @@ Page({
               phone
             },
             game_servers: selectedGameServers.length > 0 ? selectedGameServers : undefined,
-            items: selectedGameItems?.map(item => ({
+            items: selectedGameItems ? selectedGameItems.map(item => ({
               game_item_id: item.id,
               prices: item.prices.filter(p => p.price > 0)
-            }))
+            })) : []
           },
           success: (result) => {
             console.log('代练单创建接口返回:', result);
@@ -451,11 +461,9 @@ Page({
 
   // 删除价格规格
   handleDeletePriceSpec(e: WechatMiniprogram.CustomEvent) {
-    console.log('删除价格规格，参数:', e.currentTarget.dataset);
     const { itemId, priceIndex } = e.currentTarget.dataset;
-    const itemIndex = this.data.selectedGameItems?.findIndex(item => item.id === Number(itemId)) ?? -1;
+    const itemIndex = this.data.selectedGameItems ? this.data.selectedGameItems.findIndex(item => item.id === Number(itemId)) : -1;
     
-    console.log('找到的项目索引:', itemIndex);
     if (itemIndex === -1) return;
 
     // 更新 selectedGameItems
@@ -487,11 +495,9 @@ Page({
 
   // 添加价格规格
   handleAddPriceSpec(e: WechatMiniprogram.CustomEvent) {
-    console.log('添加价格规格，参数:', e.currentTarget.dataset);
     const { itemId } = e.currentTarget.dataset;
-    const itemIndex = this.data.selectedGameItems?.findIndex(item => item.id === Number(itemId)) ?? -1;
+    const itemIndex = this.data.selectedGameItems ? this.data.selectedGameItems.findIndex(item => item.id === Number(itemId)) : -1;
     
-    console.log('找到的项目索引:', itemIndex);
     if (itemIndex === -1) return;
 
     // 更新 selectedGameItems

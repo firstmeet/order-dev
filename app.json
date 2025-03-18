@@ -4,7 +4,10 @@
     "pages/my/my",
     "pages/login/login",
     "pages/task-detail/task-detail",
-    "pages/publish-task/publish-task"
+    "pages/publish-task/publish-task",
+    "pages/my-orders/my-orders",
+    "pages/order-detail/order-detail",
+    "pages/payment/payment"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -14,7 +17,7 @@
     "navigationStyle": "custom"
   },
   "tabBar": {
-    "custom": false,
+    "custom": true,
     "color": "#000000",
     "selectedColor": "#00BFFF",
     "backgroundColor": "#ffffff",

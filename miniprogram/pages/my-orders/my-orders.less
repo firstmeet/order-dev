@@ -1,0 +1,304 @@
+/* my-orders.less */
+.my-orders-page {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  padding-bottom: 100rpx;
+}
+
+/* 状态选项卡 */
+.status-tabs {
+  display: flex;
+  background-color: #fff;
+  padding: 20rpx 0;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  
+  .tab-item {
+    flex: 1;
+    text-align: center;
+    font-size: 28rpx;
+    color: #666;
+    padding: 16rpx 0;
+    position: relative;
+    
+    &.active {
+      color: #3a7cff;
+      font-weight: 500;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40rpx;
+        height: 6rpx;
+        background-color: #3a7cff;
+        border-radius: 3rpx;
+      }
+    }
+  }
+}
+
+/* 订单列表 */
+.orders-list {
+  padding: 0 20rpx;
+}
+
+/* 订单项 */
+.order-item {
+  background-color: #fff;
+  border-radius: 12rpx;
+  margin-bottom: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  
+  .order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20rpx;
+    border-bottom: 1rpx solid #eee;
+    
+    .order-number {
+      font-size: 26rpx;
+      color: #999;
+    }
+    
+    .order-status {
+      font-size: 26rpx;
+      font-weight: 500;
+      
+      &.pending {
+        color: #ff9800;
+      }
+      
+      &.processing {
+        color: #3a7cff;
+      }
+      
+      &.completed {
+        color: #4caf50;
+      }
+      
+      &.cancelled {
+        color: #999;
+      }
+    }
+  }
+  
+  .order-content {
+    padding: 20rpx 0;
+    
+    .game-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16rpx;
+      
+      .game-name {
+        font-size: 30rpx;
+        font-weight: 500;
+        color: #333;
+        margin-right: 20rpx;
+      }
+      
+      .task-type {
+        font-size: 26rpx;
+        color: #666;
+        background-color: #f5f5f5;
+        padding: 4rpx 12rpx;
+        border-radius: 6rpx;
+      }
+    }
+    
+    .account-section {
+      margin-bottom: 20rpx;
+      padding: 16rpx;
+      background-color: #f9f9f9;
+      border-radius: 8rpx;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    
+    .account-info, .character-info, .server-info {
+      display: flex;
+      margin-bottom: 12rpx;
+      font-size: 28rpx;
+      
+      .account-label, .character-label, .server-label {
+        color: #999;
+        width: 140rpx;
+      }
+      
+      .account-value, .character-value, .server-value {
+        color: #333;
+        flex: 1;
+      }
+    }
+    
+    .order-details {
+      margin-top: 20rpx;
+      padding: 16rpx;
+      border-radius: 8rpx;
+      
+      .detail-item {
+        display: block;
+        font-size: 26rpx;
+        color: #666;
+        margin-bottom: 8rpx;
+        display: flex;
+        justify-content: space-between;
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+        
+        .task-price {
+          color: #ff5252;
+          font-weight: 500;
+        }
+      }
+    }
+    
+    .subtotal {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-top: 16rpx;
+      padding-top: 16rpx;
+      border-top: 1rpx dashed #eee;
+      
+      .subtotal-label {
+        font-size: 26rpx;
+        color: #666;
+        margin-right: 10rpx;
+      }
+      
+      .subtotal-value {
+        font-size: 28rpx;
+        color: #ff5252;
+        font-weight: 500;
+      }
+    }
+  }
+  
+  .order-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20rpx;
+    border-top: 1rpx solid #eee;
+    
+    .order-time {
+      font-size: 24rpx;
+      color: #999;
+    }
+    
+    .order-price {
+      font-size: 32rpx;
+      font-weight: 500;
+      color: #ff5252;
+    }
+  }
+  
+  .order-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20rpx;
+    
+    .action-btn {
+      margin-left: 20rpx;
+      font-size: 26rpx;
+      padding: 0 30rpx;
+      height: 60rpx;
+      line-height: 60rpx;
+      border-radius: 30rpx;
+      background-color: #fff;
+      
+      &.cancel-btn {
+        color: #666;
+        border: 1rpx solid #ddd;
+      }
+      
+      &.pay-btn {
+        color: #fff;
+        background-color: #ff5252;
+        border: 1rpx solid #ff5252;
+      }
+      
+      &.contact-btn {
+        color: #3a7cff;
+        border: 1rpx solid #3a7cff;
+      }
+      
+      &.confirm-btn {
+        color: #fff;
+        background-color: #3a7cff;
+        border: 1rpx solid #3a7cff;
+      }
+      
+      &.delete-btn {
+        color: #666;
+        border: 1rpx solid #ddd;
+      }
+    }
+  }
+}
+
+/* 加载中和空状态 */
+.loading-container, .empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100rpx 0;
+}
+
+.loading-spinner {
+  width: 60rpx;
+  height: 60rpx;
+  border: 4rpx solid #f3f3f3;
+  border-top: 4rpx solid #3a7cff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text, .empty-text, .no-more-text {
+  font-size: 28rpx;
+  color: #999;
+  margin-top: 20rpx;
+}
+
+.empty-icon {
+  width: 200rpx;
+  height: 200rpx;
+  margin-bottom: 20rpx;
+}
+
+.loading-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30rpx 0;
+  
+  .loading-spinner {
+    width: 40rpx;
+    height: 40rpx;
+    margin-right: 20rpx;
+  }
+}
+
+.no-more {
+  text-align: center;
+  padding: 30rpx 0;
+} 

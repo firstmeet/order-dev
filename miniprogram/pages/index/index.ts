@@ -99,6 +99,13 @@ Component({
       this.checkLoginStatus();
       // 每次显示页面时刷新任务列表
       this.loadTasks(true);
+      // 隐藏官方的tabBar
+      wx.hideTabBar({});
+    },
+    hide() {
+      // 页面隐藏时执行
+      // 恢复官方的tabBar
+      wx.showTabBar({});
     }
   },
   methods: {

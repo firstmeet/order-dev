@@ -16,10 +16,16 @@ page {
 
 .container {
   height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
-  padding: 200rpx;
+  padding-bottom: 100rpx;
   box-sizing: border-box;
+  padding-top: 120rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 // 搜索区域
@@ -27,16 +33,15 @@ page {
   background: #ffffff;
   border-radius: 40rpx;
   margin-bottom: 24rpx;
-  width: 100vw;
+  width: 90vw;
   flex-shrink: 0;
-  padding: 0 32rpx;
+  padding: 16rpx 10rpx;
 
   .search-box {
     display: flex;
     align-items: center;
     height: 80rpx;
     background: #f5f6fa;
-    width: 100vw;
     border-radius: 20rpx;
 
     .search-icon {
@@ -63,8 +68,9 @@ page {
   flex: 1;
   height: 0;
   background: #f7f8fa;
-  width: 100vw;
+  width: 90vw;
   padding: 0 32rpx;
+  border-radius: 10rpx;
 }
 
 .task-item {

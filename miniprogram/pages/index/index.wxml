@@ -36,5 +36,8 @@
     <view class="loading" wx:if="{{isLoading}}">加载中...</view>
     <view class="divider" wx:if="{{!isLoading && !hasMore && tasks.length > 0}}">没有更多了</view>
   </scroll-view>
+  
+  <!-- 使用自定义底部导航栏组件 -->
+  <tab-bar currentTab="index"></tab-bar>
 </view>
 

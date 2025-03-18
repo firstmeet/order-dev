@@ -173,6 +173,9 @@
     font-weight: 500;
     border-radius: 44rpx;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &::after {
       display: none;
@@ -425,4 +428,10 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
     font-size: 26rpx;
     color: @text-primary;
   }
+}
+
+// 底部空间，为底部导航栏留出空间
+.bottom-space {
+  height: 120rpx;
+  width: 100%;
 } 

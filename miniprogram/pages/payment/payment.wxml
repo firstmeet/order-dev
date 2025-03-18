@@ -1,0 +1,50 @@
+<!--payment.wxml-->
+<view class="payment-page">
+  <!-- 顶部导航栏 -->
+  <navigation-bar title="订单支付" back="{{true}}" bindback="navigateBack"></navigation-bar>
+  
+  <!-- 加载中提示 -->
+  <view class="loading-container" wx:if="{{isLoading}}">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">加载中...</text>
+  </view>
+  
+  <!-- 支付内容 -->
+  <block wx:if="{{!isLoading && order}}">
+    <!-- 订单信息 -->
+    <view class="order-info-card">
+      <view class="card-title">订单信息</view>
+      <view class="info-item">
+        <text class="info-label">订单编号</text>
+        <text class="info-value">{{order.order_no || ''}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">订单金额</text>
+        <text class="info-value price">¥{{order.total_price}}</text>
+      </view>
+    </view>
+    
+    <!-- 支付方式 -->
+    <view class="payment-methods-card">
+      <view class="card-title">选择支付方式</view>
+      <view class="payment-methods">
+        <view class="payment-method selected" bindtap="selectPaymentMethod" data-method="wechat">
+          <image class="method-icon" src="/assets/images/icons/wechat-pay.png" mode="aspectFit"></image>
+          <text class="method-name">微信支付</text>
+          <view class="selected-icon"></view>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 支付按钮 -->
+    <view class="payment-action">
+      <button class="pay-btn" bindtap="handlePayment">立即支付 ¥{{order.total_price}}</button>
+    </view>
+  </block>
+  
+  <!-- 支付提示 -->
+  <view class="payment-tips">
+    <text class="tips-text">支付遇到问题？请联系客服</text>
+    <text class="service-btn" bindtap="contactService">联系客服</text>
+  </view>
+</view> 

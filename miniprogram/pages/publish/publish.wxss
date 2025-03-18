@@ -1,0 +1,209 @@
+.publish-page {
+  min-height: 100vh;
+  background: #f5f5f5;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-scroll {
+  flex: 1;
+  height: calc(100vh - 100rpx - env(safe-area-inset-bottom));
+  padding-bottom: 120rpx; /* 为底部导航栏留出空间 */
+}
+
+/* 价格规格预览样式 */
+.price-specs-preview {
+  margin-top: 20rpx;
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 20rpx;
+}
+
+.price-spec-preview-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.price-spec-preview-item:last-child {
+  border-bottom: none;
+}
+
+.price-spec-preview-item .price {
+  color: #3d7eff;
+  font-weight: bold;
+}
+
+.edit-price-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80rpx;
+  background: #f8f8f8;
+  border-radius: 8rpx;
+  color: #3d7eff;
+  font-size: 28rpx;
+  margin-top: 20rpx;
+}
+
+.edit-icon {
+  font-size: 32rpx;
+  margin-right: 10rpx;
+}
+
+/* 价格规格编辑弹窗样式 */
+.price-spec-editor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.price-spec-editor.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.editor-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.editor-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  border-radius: 24rpx 24rpx 0 0;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.price-spec-editor.show .editor-content {
+  transform: translateY(0);
+}
+
+.editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.editor-title {
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.close-btn {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  color: #999;
+}
+
+.editor-scroll {
+  max-height: 60vh;
+  padding: 30rpx;
+}
+
+.price-specs {
+  margin-top: 20rpx;
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 20rpx;
+}
+
+.price-spec-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+  position: relative;
+}
+
+.price-spec-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.spec-name-input {
+  flex: 1;
+  height: 80rpx;
+  background: #f8f8f8;
+  border-radius: 8rpx;
+  padding: 0 20rpx;
+  font-size: 28rpx;
+}
+
+.price-input-container {
+  display: flex;
+  align-items: center;
+  background: #f8f8f8;
+  border-radius: 8rpx;
+  padding: 0 20rpx;
+}
+
+.price-input {
+  width: 160rpx;
+  height: 80rpx;
+  font-size: 28rpx;
+}
+
+.price-unit {
+  color: #666;
+  font-size: 28rpx;
+  margin-left: 10rpx;
+}
+
+.delete-btn {
+  width: 40rpx;
+  height: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 32rpx;
+  margin-left: 20rpx;
+}
+
+.add-price-spec {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80rpx;
+  background: #f8f8f8;
+  border-radius: 8rpx;
+  color: #3d7eff;
+  font-size: 28rpx;
+  margin-top: 20rpx;
+}
+
+.add-icon {
+  font-size: 32rpx;
+  margin-right: 10rpx;
+}
+
+/* 确保底部导航栏固定在底部 */
+.bottom-space {
+  height: 120rpx;
+  width: 100%;
+} 

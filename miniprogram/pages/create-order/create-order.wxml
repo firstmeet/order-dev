@@ -1,0 +1,133 @@
+ <!--pages/create-order/create-order.wxml-->
+<view class="container">
+  <!-- 顶部导航栏 -->
+  <view class="nav-bar" style="padding-top: {{env(safe-area-inset-top)}}px;">
+    <view class="nav-content">
+      <view class="back-btn" bindtap="navigateBack">
+        <text class="back-icon">←</text>
+      </view>
+      <text class="title">下单</text>
+    </view>
+  </view>
+
+  <view class="loading-container" wx:if="{{isLoading}}">
+    <view class="loading-text">加载中...</view>
+  </view>
+
+  <form bindsubmit="handleSubmit" wx:else>
+    <!-- 任务信息 -->
+    <view class="form-section">
+      <view class="section-title">任务信息</view>
+      <view class="task-info">
+        <view class="task-game">{{task.game}}</view>
+        <view class="task-items">
+          <view class="task-item" wx:for="{{task.items}}" wx:key="id">
+            <view class="task-item-name">{{item.task_type}}</view>
+            <view class="price-specs">
+              <view class="price-spec" wx:for="{{item.price_specs}}" wx:for-item="spec" wx:key="id">
+                <text>{{spec.name}}: ¥{{spec.price}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 游戏账号信息 -->
+    <view class="form-section" wx:for="{{accountDetails}}" wx:for-index="accountIndex" wx:for-item="account" wx:key="accountIndex">
+      <view class="section-header">
+        <view class="section-title">游戏账号 {{accountIndex + 1}}</view>
+        <view class="delete-account" wx:if="{{accountDetails.length > 1}}" bindtap="deleteAccount" data-index="{{accountIndex}}">删除</view>
+      </view>
+      
+      <view class="form-item">
+        <text class="label required">游戏账号</text>
+        <input class="input" placeholder="请输入游戏账号" value="{{account.game_account}}" bindinput="handleAccountInput" data-field="game_account" data-index="{{accountIndex}}" />
+      </view>
+      <view class="form-item">
+        <text class="label required">游戏密码</text>
+        <input class="input" password placeholder="请输入游戏密码" value="{{account.game_password}}" bindinput="handleAccountInput" data-field="game_password" data-index="{{accountIndex}}" />
+      </view>
+      <view class="form-item">
+        <text class="label required">角色名称</text>
+        <input class="input" placeholder="请输入角色名称" value="{{account.character_name}}" bindinput="handleAccountInput" data-field="character_name" data-index="{{accountIndex}}" />
+      </view>
+      
+      <!-- 游戏区服选择 -->
+      <view class="form-item" wx:if="{{gameServers && gameServers.length > 0}}">
+        <text class="label">游戏区服</text>
+        <picker bindchange="handleServerSelect" value="{{account.selectedServerIndex}}" range="{{gameServers}}" range-key="name" data-index="{{accountIndex}}">
+          <view class="picker {{account.selectedServer ? '' : 'placeholder'}}">
+            {{account.selectedServer ? account.selectedServer.name : '请选择游戏区服'}}
+          </view>
+        </picker>
+      </view>
+
+      <!-- 任务选择 -->
+      <view class="task-selection-section">
+        <view class="section-subtitle">选择任务</view>
+        <view class="task-selection">
+          <view class="task-selection-item" wx:for="{{task.items}}" wx:for-item="taskItem" wx:for-index="taskIndex" wx:key="id">
+            <view class="task-selection-header">
+              <text class="task-selection-name">{{taskItem.task_type}}</text>
+            </view>
+            
+            <!-- 价格规格选择 -->
+            <view class="price-spec-selection">
+              <block wx:for="{{taskItem.price_specs}}" wx:for-item="spec" wx:for-index="specIndex" wx:key="id">
+                <view class="price-spec-item {{account.selectedTasks[taskItem.game_item_id] && account.selectedTasks[taskItem.game_item_id].specId === spec.id ? 'selected' : ''}}" 
+                      bindtap="selectSpec"
+                      data-account-index="{{accountIndex}}"
+                      data-item-id="{{taskItem.game_item_id}}"
+                      data-spec-id="{{spec.id}}">
+                  <view class="price-spec-info">
+                    <text class="price-spec-name">{{spec.name}}</text>
+                    <text class="price-spec-price">¥{{spec.price}}</text>
+                  </view>
+                  
+                  <!-- 只有选中的规格才显示数量控制 -->
+                  <view class="quantity-control" wx:if="{{account.selectedTasks[taskItem.game_item_id] && account.selectedTasks[taskItem.game_item_id].specId === spec.id}}" catchtap>
+                    <view class="quantity-btn minus" catchtap="decreaseQuantity" data-account-index="{{accountIndex}}" data-item-id="{{taskItem.game_item_id}}">－</view>
+                    <input class="quantity-input" type="number" value="{{account.selectedTasks[taskItem.game_item_id].count}}" catchtap bindinput="handleQuantityInput" data-account-index="{{accountIndex}}" data-item-id="{{taskItem.game_item_id}}" />
+                    <view class="quantity-btn plus" catchtap="increaseQuantity" data-account-index="{{accountIndex}}" data-item-id="{{taskItem.game_item_id}}">＋</view>
+                  </view>
+                </view>
+              </block>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 添加账号按钮 -->
+    <view class="add-account-section">
+      <view class="add-account-btn" bindtap="addAccount">
+        <text class="add-icon">+</text>
+        <text>添加游戏账号</text>
+      </view>
+    </view>
+
+    <!-- 总价 -->
+    <view class="form-section">
+      <view class="total-price">
+        <text class="total-price-label">总价:</text>
+        <view class="total-price-value">
+          <text class="price">¥{{totalPrice}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 提交按钮 -->
+    <view class="submit-section">
+      <button class="submit-btn" form-type="submit" disabled="{{!formValid}}">
+        确认下单
+      </button>
+    </view>
+  </form>
+  
+  <!-- 底部空间，为底部导航栏留出空间 -->
+  <view class="bottom-space"></view>
+  
+  <!-- 使用自定义底部导航栏组件 -->
+  <tab-bar currentTab=""></tab-bar>
+</view>

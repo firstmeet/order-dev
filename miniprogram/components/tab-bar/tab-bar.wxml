@@ -1,0 +1,15 @@
+<!--components/tab-bar/tab-bar.wxml-->
+<view class="tab-bar">
+  <view class="tab-item {{currentTab === 'index' ? 'active' : ''}}" bindtap="switchTab" data-tab="index">
+    <view class="tab-icon">🏠</view>
+    <view class="tab-text">首页</view>
+  </view>
+  <view class="tab-item {{currentTab === 'publish' ? 'active' : ''}}" bindtap="switchTab" data-tab="publish">
+    <view class="tab-icon">➕</view>
+    <view class="tab-text">发布</view>
+  </view>
+  <view class="tab-item {{currentTab === 'my' ? 'active' : ''}}" bindtap="switchTab" data-tab="my">
+    <view class="tab-icon">👤</view>
+    <view class="tab-text">我的</view>
+  </view>
+</view> 

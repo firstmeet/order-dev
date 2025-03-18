@@ -1,0 +1,250 @@
+/* order-detail.less */
+.order-detail-page {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  padding-bottom: 100rpx;
+}
+
+/* 加载中 */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100rpx 0;
+}
+
+.loading-spinner {
+  width: 60rpx;
+  height: 60rpx;
+  border: 4rpx solid #f3f3f3;
+  border-top: 4rpx solid #3a7cff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: #999;
+  margin-top: 20rpx;
+}
+
+/* 订单状态 */
+.status-section {
+  background-color: #3a7cff;
+  padding: 40rpx 30rpx;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  
+  .status-icon {
+    width: 60rpx;
+    height: 60rpx;
+    margin-right: 20rpx;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+    &.pending {
+      background-image: url('/assets/images/icons/pending.png');
+    }
+    
+    &.processing {
+      background-image: url('/assets/images/icons/processing.png');
+    }
+    
+    &.completed {
+      background-image: url('/assets/images/icons/completed.png');
+    }
+    
+    &.cancelled {
+      background-image: url('/assets/images/icons/cancelled.png');
+    }
+  }
+  
+  .status-text {
+    font-size: 36rpx;
+    font-weight: 500;
+  }
+}
+
+/* 信息卡片 */
+.info-card {
+  background-color: #fff;
+  margin: 20rpx;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  
+  .card-title {
+    font-size: 32rpx;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 20rpx;
+    padding-bottom: 16rpx;
+    border-bottom: 1rpx solid #eee;
+  }
+  
+  .info-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16rpx;
+    
+    .info-label {
+      font-size: 28rpx;
+      color: #666;
+    }
+    
+    .info-value {
+      font-size: 28rpx;
+      color: #333;
+      
+      &.price {
+        color: #ff5252;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+/* 任务列表 */
+.task-list {
+  margin-bottom: 20rpx;
+  
+  .task-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 16rpx 0;
+    border-bottom: 1rpx solid #f5f5f5;
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    .task-info {
+      display: flex;
+      flex-direction: column;
+      
+      .task-name {
+        font-size: 28rpx;
+        color: #333;
+        margin-bottom: 8rpx;
+      }
+      
+      .task-spec {
+        font-size: 24rpx;
+        color: #999;
+      }
+    }
+    
+    .task-price-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      
+      .task-count {
+        font-size: 26rpx;
+        color: #666;
+        margin-bottom: 8rpx;
+      }
+      
+      .task-price {
+        font-size: 28rpx;
+        color: #ff5252;
+      }
+    }
+  }
+}
+
+.total-price {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20rpx;
+  border-top: 1rpx solid #eee;
+  font-size: 30rpx;
+  
+  .price {
+    color: #ff5252;
+    font-weight: 500;
+  }
+}
+
+/* 卖家信息 */
+.seller-info {
+  display: flex;
+  align-items: center;
+  
+  .seller-avatar {
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+    margin-right: 20rpx;
+  }
+  
+  .seller-details {
+    display: flex;
+    flex-direction: column;
+    
+    .seller-name {
+      font-size: 28rpx;
+      color: #333;
+      margin-bottom: 8rpx;
+    }
+    
+    .seller-contact {
+      font-size: 24rpx;
+      color: #666;
+    }
+  }
+}
+
+/* 操作按钮 */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  padding: 30rpx 20rpx;
+  
+  .action-btn {
+    margin: 0 10rpx;
+    font-size: 28rpx;
+    padding: 0 30rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+    border-radius: 40rpx;
+    
+    &.cancel-btn {
+      color: #666;
+      background-color: #fff;
+      border: 1rpx solid #ddd;
+    }
+    
+    &.pay-btn {
+      color: #fff;
+      background-color: #ff5252;
+      border: 1rpx solid #ff5252;
+    }
+    
+    &.contact-btn {
+      color: #3a7cff;
+      background-color: #fff;
+      border: 1rpx solid #3a7cff;
+    }
+    
+    &.confirm-btn {
+      color: #fff;
+      background-color: #3a7cff;
+      border: 1rpx solid #3a7cff;
+    }
+    
+    &.delete-btn {
+      color: #666;
+      background-color: #fff;
+      border: 1rpx solid #ddd;
+    }
+  }
+} 

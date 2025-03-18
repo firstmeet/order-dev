@@ -1,0 +1,129 @@
+<!--order-detail.wxml-->
+<view class="order-detail-page">
+  <!-- 顶部导航栏 -->
+  <navigation-bar title="订单详情" back="{{true}}" bindback="navigateBack"></navigation-bar>
+  
+  <!-- 加载中提示 -->
+  <view class="loading-container" wx:if="{{isLoading}}">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">加载中...</text>
+  </view>
+  
+  <!-- 订单详情内容 -->
+  <block wx:if="{{!isLoading && order}}">
+    <!-- 订单状态 -->
+    <view class="status-section">
+      <view class="status-icon {{order.status}}"></view>
+      <text class="status-text">{{order.status_text}}</text>
+    </view>
+    
+    <!-- 订单基本信息 -->
+    <view class="info-card">
+      <view class="card-title">订单信息</view>
+      <view class="info-item">
+        <text class="info-label">订单编号</text>
+        <text class="info-value">{{order.order_number}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">创建时间</text>
+        <text class="info-value">{{order.created_at}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">订单金额</text>
+        <text class="info-value price">¥{{order.total_price}}</text>
+      </view>
+      <view class="info-item" wx:if="{{order.payment_time}}">
+        <text class="info-label">支付时间</text>
+        <text class="info-value">{{order.payment_time}}</text>
+      </view>
+      <view class="info-item" wx:if="{{order.completion_time}}">
+        <text class="info-label">完成时间</text>
+        <text class="info-value">{{order.completion_time}}</text>
+      </view>
+    </view>
+    
+    <!-- 游戏账号信息 -->
+    <view class="info-card" wx:for="{{order.details}}" wx:key="id" wx:for-item="detail">
+      <view class="card-title">账号信息</view>
+      <view class="info-item">
+        <text class="info-label">游戏</text>
+        <text class="info-value">{{order.game}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">游戏账号</text>
+        <text class="info-value">{{detail.game_account}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">角色名称</text>
+        <text class="info-value">{{detail.character_name}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">游戏服务器</text>
+        <text class="info-value">{{detail.game_server.name}}</text>
+      </view>
+      
+      <!-- 任务详情 -->
+      <view class="task-list">
+        <view class="task-item" wx:for="{{detail.tasks}}" wx:key="game_item_id" wx:for-item="task">
+          <view class="task-info">
+            <text class="task-name">{{task.task_type}}/{{task.spec_name}}</text>
+          </view>
+          <view class="task-price-info">
+            <text class="task-count">x{{task.count}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="subtotal">
+        <text>小计</text>
+        <text class="price">¥{{detail.subtotal}}</text>
+      </view>
+    </view>
+    
+    <!-- 订单总价 -->
+    <view class="info-card">
+      <view class="total-price">
+        <text>总计</text>
+        <text class="price">¥{{order.total_price}}</text>
+      </view>
+    </view>
+    
+    <!-- 卖家信息 -->
+    <view class="info-card" wx:if="{{order.seller}}">
+      <view class="card-title">卖家信息</view>
+      <view class="seller-info">
+        <image class="seller-avatar" src="{{order.seller.avatar || '/assets/images/default-avatar.png'}}" mode="aspectFill"></image>
+        <view class="seller-details">
+          <text class="seller-name">{{order.seller.username}}</text>
+          <text class="seller-contact" wx:if="{{order.seller.phone}}">联系电话: {{order.seller.phone}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 操作按钮 -->
+    <view class="action-buttons">
+      <button 
+        class="action-btn cancel-btn" 
+        wx:if="{{order.status === 'pending'}}" 
+        bindtap="cancelOrder">取消订单</button>
+      <button 
+        class="action-btn pay-btn" 
+        wx:if="{{order.status === 'pending'}}" 
+        bindtap="payOrder">立即支付</button>
+      <button 
+        class="action-btn contact-btn" 
+        wx:if="{{order.status === 'processing'}}" 
+        bindtap="contactSeller">联系卖家</button>
+      <button 
+        class="action-btn confirm-btn" 
+        wx:if="{{order.status === 'processing'}}" 
+        bindtap="confirmOrder">确认完成</button>
+      <button 
+        class="action-btn delete-btn" 
+        wx:if="{{order.status === 'completed' || order.status === 'cancelled'}}" 
+        bindtap="deleteOrder">删除订单</button>
+    </view>
+  </block>
+  
+  <!-- 底部导航栏 -->
+  <tab-bar currentTab="my"></tab-bar>
+</view> 

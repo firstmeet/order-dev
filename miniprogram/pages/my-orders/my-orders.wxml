@@ -1,0 +1,142 @@
+<!--my-orders.wxml-->
+<view class="my-orders-page">
+  <!-- 顶部导航栏 -->
+  <navigation-bar title="我的订单" back="{{true}}" bindback="navigateBack"></navigation-bar>
+  
+  <!-- 订单状态选项卡 -->
+  <view class="status-tabs">
+    <view 
+      class="tab-item {{currentStatus === '' ? 'active' : ''}}" 
+      data-status="" 
+      bindtap="changeStatus">全部</view>
+    <view 
+      class="tab-item {{currentStatus === 'pending' ? 'active' : ''}}" 
+      data-status="pending" 
+      bindtap="changeStatus">待付款</view>
+    <view 
+      class="tab-item {{currentStatus === 'processing' ? 'active' : ''}}" 
+      data-status="processing" 
+      bindtap="changeStatus">进行中</view>
+    <view 
+      class="tab-item {{currentStatus === 'completed' ? 'active' : ''}}" 
+      data-status="completed" 
+      bindtap="changeStatus">已完成</view>
+    <view 
+      class="tab-item {{currentStatus === 'cancelled' ? 'active' : ''}}" 
+      data-status="cancelled" 
+      bindtap="changeStatus">已取消</view>
+  </view>
+  
+  <!-- 订单列表 -->
+  <scroll-view 
+    scroll-y="{{true}}" 
+    class="orders-list" 
+    bindscrolltolower="loadMoreOrders"
+    style="height: calc(100vh - 180px);">
+    
+    <!-- 加载中提示 -->
+    <view class="loading-container" wx:if="{{isLoading && page === 1}}">
+      <view class="loading-spinner"></view>
+      <text class="loading-text">加载中...</text>
+    </view>
+    
+    <!-- 订单列表内容 -->
+    <block wx:if="{{!isLoading || page > 1}}">
+      <!-- 空状态 -->
+      <view class="empty-state" wx:if="{{orders.length === 0}}">
+        <image class="empty-icon" src="/assets/images/icons/empty-orders.png" mode="aspectFit"></image>
+        <text class="empty-text">暂无订单</text>
+      </view>
+      
+      <!-- 订单列表项 -->
+      <view class="order-item" wx:for="{{orders}}" wx:key="id" bindtap="navigateToOrderDetail" data-id="{{item.id}}">
+        <view class="order-header">
+          <text class="order-number">订单号: {{item.order_number}}</text>
+          <text class="order-status {{item.status}}">{{item.status_text}}</text>
+        </view>
+        
+        <view class="order-content">
+          <view class="game-info">
+            <text class="game-name">{{item.game}}</text>
+            <text class="task-type">{{item.task_type}}</text>
+          </view>
+          
+          <view wx:for="{{item.details}}" wx:for-item="detail" wx:key="id" class="account-section">
+            <view class="account-info">
+              <text class="account-label">游戏账号:</text>
+              <text class="account-value">{{detail.game_account}}</text>
+            </view>
+            
+            <view class="character-info">
+              <text class="character-label">角色名称:</text>
+              <text class="character-value">{{detail.character_name}}</text>
+            </view>
+            
+            <view class="server-info">
+              <text class="server-label">服务器:</text>
+              <text class="server-value">{{detail.game_server.name}}</text>
+            </view>
+            
+            <view class="order-details">
+              <text class="detail-item" wx:for="{{detail.tasks}}" wx:for-item="task" wx:key="game_item_id">
+                {{task.task_type}}/{{task.spec_name}}: {{task.count}}个 <text class="task-price">¥{{task.price || (task.unit_price * task.count)}}</text>
+              </text>
+            </view>
+            
+            <view class="subtotal">
+              <text class="subtotal-label">小计:</text>
+              <text class="subtotal-value">¥{{detail.subtotal}}</text>
+            </view>
+          </view>
+        </view>
+        
+        <view class="order-footer">
+          <text class="order-time">{{item.created_at}}</text>
+          <text class="order-price">¥{{item.total_price}}</text>
+        </view>
+        
+        <view class="order-actions">
+          <button 
+            class="action-btn cancel-btn" 
+            wx:if="{{item.status === 'pending'}}" 
+            catchtap="cancelOrder" 
+            data-id="{{item.id}}">取消订单</button>
+          <button 
+            class="action-btn pay-btn" 
+            wx:if="{{item.status === 'pending'}}" 
+            catchtap="payOrder" 
+            data-id="{{item.id}}">立即支付</button>
+          <button 
+            class="action-btn contact-btn" 
+            wx:if="{{item.status === 'processing'}}" 
+            catchtap="contactSeller" 
+            data-id="{{item.id}}">联系卖家</button>
+          <button 
+            class="action-btn confirm-btn" 
+            wx:if="{{item.status === 'processing'}}" 
+            catchtap="confirmOrder" 
+            data-id="{{item.id}}">确认完成</button>
+          <button 
+            class="action-btn delete-btn" 
+            wx:if="{{item.status === 'completed' || item.status === 'cancelled'}}" 
+            catchtap="deleteOrder" 
+            data-id="{{item.id}}">删除订单</button>
+        </view>
+      </view>
+    </block>
+    
+    <!-- 加载更多提示 -->
+    <view class="loading-more" wx:if="{{isLoading && page > 1}}">
+      <view class="loading-spinner"></view>
+      <text class="loading-text">加载更多...</text>
+    </view>
+    
+    <!-- 没有更多数据提示 -->
+    <view class="no-more" wx:if="{{!isLoading && !hasMore && orders.length > 0}}">
+      <text class="no-more-text">没有更多订单了</text>
+    </view>
+  </scroll-view>
+  
+  <!-- 底部导航栏 -->
+  <tab-bar currentTab="my"></tab-bar>
+</view> 

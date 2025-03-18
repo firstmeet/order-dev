@@ -28,12 +28,15 @@ export const API = {
   // 订单相关
   ORDER: {
     CREATE: `${API_BASE_URL}/api/orders`,              // 创建订单
-    DETAIL: `${API_BASE_URL}/api/orders/:id`,             // 获取订单详情 (需要拼接ID)
+    DETAIL: `${API_BASE_URL}/api/orders/`,             // 获取订单详情 (需要拼接ID)
     USER_ORDERS: `${API_BASE_URL}/api/user/orders`,    // 获取用户的订单列表
     TASK_ORDERS: `${API_BASE_URL}/api/task-orders/`,   // 获取代练单的订单列表 (需要拼接task_id)
     UPDATE_STATUS: `${API_BASE_URL}/api/orders/`,      // 更新订单状态 (需要拼接ID + /status)
-    CLOSE: `${API_BASE_URL}/api/orders/:id/close`,
-    LIST: `${API_BASE_URL}/api/orders`
+    CLOSE: `${API_BASE_URL}/api/orders/`,              // 关闭订单 (需要拼接ID + /close)
+    LIST: `${API_BASE_URL}/api/orders`,                // 获取订单列表
+    CANCEL: `${API_BASE_URL}/api/orders/`,             // 取消订单 (需要拼接ID + /cancel)
+    COMPLETE: `${API_BASE_URL}/api/orders/`,           // 完成订单 (需要拼接ID + /complete)
+    DELETE: `${API_BASE_URL}/api/orders/`              // 删除订单 (需要拼接ID)
   },
   
   // 健康检查

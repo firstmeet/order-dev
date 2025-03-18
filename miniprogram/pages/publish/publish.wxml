@@ -135,4 +135,10 @@
       </button>
     </view>
   </form>
+  
+  <!-- 底部空间，为底部导航栏留出空间 -->
+  <view class="bottom-space"></view>
+  
+  <!-- 使用自定义底部导航栏组件 -->
+  <tab-bar currentTab="publish"></tab-bar>
 </view> 

@@ -1,2 +1,90 @@
 <!--pages/task-detail/task-detail.wxml-->
-<text>pages/task-detail/task-detail.wxml</text>
+<view class="container">
+  <!-- 顶部导航栏 -->
+  <view class="nav-bar">
+    <view class="back-button" bindtap="navigateBack">
+      <text class="back-icon">←</text>
+      <text class="back-text">返回</text>
+    </view>
+    <view class="page-title" wx:if="{{task}}">{{task.game}}</view>
+    <view class="placeholder"></view>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading-container" wx:if="{{isLoading}}">
+    <view class="loading">加载中...</view>
+  </view>
+  
+  <!-- 错误提示 -->
+  <view class="error-container" wx:elif="{{error}}">
+    <view class="error-message">{{error}}</view>
+    <button class="retry-btn" bindtap="loadTaskDetail">重试</button>
+  </view>
+  
+  <!-- 任务详情 -->
+  <block wx:elif="{{task}}">
+    <!-- 任务头部 -->
+    <view class="task-header">
+      <view class="task-title-row">
+        <text class="game-name">{{task.game}}</text>
+        <view class="task-status {{task.status === 'open' ? 'status-open' : 'status-closed'}}">
+          {{task.status === 'open' ? '招募中' : '已关闭'}}
+        </view>
+      </view>
+      <view class="task-time">发布时间: {{task.created_at_formatted}}</view>
+    </view>
+    
+    <!-- 任务内容 -->
+    <view class="task-content">
+      <!-- 任务项目 -->
+      <view class="section">
+        <view class="section-title">任务项目</view>
+        <view class="game-items">
+          <view class="game-item" wx:for="{{task.items}}" wx:key="id">
+            <view class="game-item-name">{{item.task_type}}</view>
+            
+            <!-- 价格规格 -->
+            <view class="price-specs">
+              <view class="price-spec-item" wx:for="{{item.price_specs}}" wx:for-item="priceSpec" wx:key="id">
+                <text class="spec-label">{{priceSpec.name}}:</text>
+                <text class="price-value">¥{{priceSpec.price}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      
+      <!-- 任务描述 -->
+      <view class="section">
+        <view class="section-title">任务描述</view>
+        <view class="task-desc">{{task.desc || '暂无描述'}}</view>
+      </view>
+      
+      <!-- 联系方式 -->
+      <view class="section">
+        <view class="section-title">联系方式</view>
+        <view class="contact-info" bindtap="contactPublisher">
+          <text class="phone-number">{{task.contact.phone}}</text>
+          <text class="contact-tip">点击拨打</text>
+        </view>
+      </view>
+      
+      <!-- 游戏服务器 -->
+      <view class="section" wx:if="{{task.game_servers && task.game_servers.length > 0}}">
+        <view class="section-title">游戏服务器</view>
+        <view class="server-list">
+          <view class="server-item" wx:for="{{task.game_servers}}" wx:key="index">{{item}}</view>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 底部操作栏 -->
+    <view class="footer">
+      <button class="action-btn take-order-btn" bindtap="takeOrder" wx:if="{{task.status === 'open'}}">下单</button>
+      <button class="action-btn disabled-btn" wx:else>已关闭</button>
+    </view>
+  </block>
+  
+  <!-- 使用自定义底部导航栏组件 -->
+  <tab-bar currentTab="{{currentTab}}"></tab-bar>
+</view>

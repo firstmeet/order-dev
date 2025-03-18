@@ -176,6 +176,15 @@ Component({
       });
     },
 
+    // 导航到我的订单
+    navigateToMyOrders() {
+      this.ensureLogin(() => {
+        wx.navigateTo({
+          url: '/pages/my-orders/my-orders'
+        });
+      });
+    },
+
     // 导航到我发布的
     navigateToMyPublish() {
       this.ensureLogin(() => {
@@ -216,6 +225,38 @@ Component({
           url: '/pages/publish/publish'
         });
       });
+    },
+
+    /**
+     * 生命周期函数--监听页面显示
+     */
+    onShow() {
+      // 检查登录状态
+      this.checkLoginStatus();
+      
+      // 获取用户信息
+      this.getUserProfile();
+      
+      // 隐藏官方的tabBar
+      wx.hideTabBar({});
+    },
+    
+    /**
+     * 生命周期函数--监听页面隐藏
+     */
+    onHide() {
+      // 恢复官方的tabBar
+      wx.showTabBar({});
+    },
+
+    // 检查登录状态
+    checkLoginStatus() {
+      // Implementation of checkLoginStatus method
+    },
+
+    // 获取用户信息
+    getUserProfile() {
+      // Implementation of getUserProfile method
     }
   }
 }); 

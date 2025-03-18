@@ -33,6 +33,12 @@
         </view>
         <text class="label">我的代练单</text>
       </view>
+      <view class="feature-item" bindtap="navigateToMyOrders">
+        <view class="icon-wrap">
+          <image class="icon" src="/assets/images/icons/order-list.png" mode="aspectFit"></image>
+        </view>
+        <text class="label">我的订单</text>
+      </view>
       <view class="feature-item" bindtap="navigateToMyPublish">
         <view class="icon-wrap">
           <image class="icon" src="/assets/images/icons/publish.png" mode="aspectFit"></image>
@@ -72,9 +78,6 @@
   <!-- 底部导航栏占位 -->
   <view class="bottom-space"></view>
 
-  <!-- 发布按钮 -->
-  <view class="publish-btn" bindtap="navigateToPublish">
-    <image class="icon" src="/assets/images/icons/publish.png" mode="aspectFit"></image>
-    <text>发布</text>
-  </view>
+  <!-- 使用自定义底部导航栏组件 -->
+  <tab-bar currentTab="my"></tab-bar>
 </view> 
